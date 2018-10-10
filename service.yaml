@@ -1,0 +1,17 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: kafkasender
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/sjwoodman/kafka-sender
+            env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "my-cluster-kafka-bootstrap.myproject.scv.cluster.local"
+            - name: KAFKA_TOPIC
+              value: "test"
